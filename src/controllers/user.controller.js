@@ -25,4 +25,27 @@ module.exports = {
 
     response.send(200, user);
   },
+
+  createUser(request, response) {
+    let body = '';
+
+    request.on('data', (chunk) => {
+      body += chunk;
+    });
+
+    request.on('end', () => {
+      const parsedBody = JSON.parse(body);
+
+      const lastUserId = users[users.length - 1].id;
+
+      const user = {
+        id: lastUserId + 1,
+        name: parsedBody.name,
+      };
+
+      users.push(user);
+
+      response.send(200, user);
+    });
+  },
 };
