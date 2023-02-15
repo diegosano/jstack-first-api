@@ -65,4 +65,13 @@ module.exports = {
 
     response.send(200, { id: Number(id), name });
   },
+
+  deleteUser(request, response) {
+    const { id } = request.params;
+
+    const newUsers = users.filter((user) => user.id !== Number(id));
+    users = newUsers;
+
+    response.send(200, { success: true });
+  },
 };
